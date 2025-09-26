@@ -1,1 +1,6 @@
-<p>user works!</p>
+<div>
+  <button [id]="selectedUser.id">
+    <img [src]="'users/' + selectedUser.avatar" />
+    <span>{{ selectedUser.name }}</span>
+  </button>
+</div>
