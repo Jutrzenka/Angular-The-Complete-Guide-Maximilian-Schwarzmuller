@@ -1,6 +1,12 @@
 // import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Component, input, output, computed } from '@angular/core';
 
+type UserType = {
+  id: string;
+  avatar: string;
+  name: string;
+};
+
 @Component({
   selector: 'app-user',
   imports: [],
@@ -23,16 +29,14 @@ export class User {
   // }
 
   //Nowa metoda sygnałów
-  id = input.required<string>();
-  avatar = input.required<string>();
-  name = input.required<string>();
+  user = input.required<UserType>();
   select = output<string>();
 
   imagePath = computed(() => {
-    return '/users/' + this.avatar();
+    return '/users/' + this.user().avatar;
   });
 
   onSelectUser() {
-    this.select.emit(this.id());
+    this.select.emit(this.user().id);
   }
 }

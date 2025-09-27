@@ -12,7 +12,7 @@ import { Tasks } from './tasks/tasks';
 })
 export class App {
   users = DUMMY_USERS;
-  selectedUserId = signal<string>('u1');
+  selectedUserId = signal<string | null>(null);
 
   onSelectUser(id: string) {
     this.selectedUserId.set(id);
