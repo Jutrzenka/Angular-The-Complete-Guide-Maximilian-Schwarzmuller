@@ -1,5 +1,12 @@
 import { Component, input } from '@angular/core';
 
+interface TaskInterface {
+  id: string;
+  userId: string;
+  title: string;
+  summary: string;
+  dueDate: string;
+}
 
 @Component({
   selector: 'app-task',
@@ -8,7 +15,5 @@ import { Component, input } from '@angular/core';
   styleUrl: './task.scss',
 })
 export class Task {
-  title = input.required<string>();
-  summary = input.required<string>();
-  time = input.required<string>();
+  task = input.required<TaskInterface>();
 }

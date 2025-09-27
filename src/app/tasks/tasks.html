@@ -8,7 +8,7 @@
   <ul>
     @for (task of selectedUserTasks(); track $index) {
     <li>
-      <app-task [title]="task.title" [summary]="task.summary" [time]="task.dueDate" />
+      <app-task [task]="task" />
     </li>
     }
   </ul>
