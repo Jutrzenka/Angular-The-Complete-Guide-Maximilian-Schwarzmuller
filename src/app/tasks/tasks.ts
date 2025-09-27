@@ -1,11 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-tasks',
   imports: [],
   templateUrl: './tasks.html',
-  styleUrl: './tasks.scss'
+  styleUrl: './tasks.scss',
 })
 export class Tasks {
-
+  id = input.required<string>();
+  name = input.required<string>();
 }
