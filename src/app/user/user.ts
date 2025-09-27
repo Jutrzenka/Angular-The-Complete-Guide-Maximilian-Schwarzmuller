@@ -1,7 +1,5 @@
-import { Component, signal } from '@angular/core';
-import { DUMMY_USERS } from '../dummy-users';
-
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+// import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output, computed } from '@angular/core';
 
 @Component({
   selector: 'app-user',
@@ -10,14 +8,31 @@ const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
   styleUrl: './user.scss',
 })
 export class User {
-  selectedUser = signal(DUMMY_USERS[randomIndex]);
+  // // Stara metoda inputów w formie dekoratorów
+  // @Input({ required: true }) id!: string;
+  // @Input({ required: false }) avatar!: string;
+  // @Input({ required: true }) name!: string;
+  // @Output() select = new EventEmitter();
 
-  get imagePath() {
-    return '/users/' + this.selectedUser().avatar;
-  }
+  // get imagePath() {
+  //   return '/users/' + this.avatar;
+  // }
+
+  // onSelectUser() {
+  //   this.select.emit(this.id);
+  // }
+
+  //Nowa metoda sygnałów
+  id = input.required<string>();
+  avatar = input.required<string>();
+  name = input.required<string>();
+  select = output<string>();
+
+  imagePath = computed(() => {
+    return '/users/' + this.avatar();
+  });
 
   onSelectUser() {
-    const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
-    this.selectedUser.set(DUMMY_USERS[randomIndex]);
+    this.select.emit(this.id());
   }
 }
