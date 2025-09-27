@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { User } from './user/user';
-import { DUMMY_USERS } from './dummy-users';
+import { DUMMY_USERS } from './dummy';
 import { Tasks } from './tasks/tasks';
 
 @Component({
@@ -16,7 +16,6 @@ export class App {
 
   onSelectUser(id: string) {
     this.selectedUserId.set(id);
-    console.log('Selected user with id ' + id);
   }
 
   selectedUser = computed(() => {
