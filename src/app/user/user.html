@@ -1,10 +1,10 @@
 <!-- Nowa metoda na sygnałach -->
-<div>
+<app-card>
   <button [class.active]="selected()" [id]="user().id" (click)="onSelectUser()">
     <img [src]="imagePath()" [alt]="user().name" />
     <span>{{ user().name }}</span>
   </button>
-</div>
+</app-card>
 
 <!-- Stara metoda na dekoratorach -->
 <!-- <div>
