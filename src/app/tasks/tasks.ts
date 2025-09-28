@@ -1,4 +1,4 @@
-import { Component, input, signal, computed } from '@angular/core';
+import { Component, input, computed } from '@angular/core';
 import { Task } from './task/task';
 import { DUMMY_TASKS } from '../dummy';
 

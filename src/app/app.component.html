@@ -42,7 +42,11 @@
 <main>
   <ul class="users">
     @for (user of users; track $index) {
-    <app-user [user]="user" (select)="onSelectUser($event)" />
+    <app-user
+      [user]="user"
+      [selected]="user.id === selectedUserId()"
+      (select)="onSelectUser($event)"
+    />
     }
   </ul>
   @if (selectedUserId() !== null) {

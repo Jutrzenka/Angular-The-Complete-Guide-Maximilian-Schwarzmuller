@@ -1,6 +1,6 @@
 // import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Component, input, output, computed } from '@angular/core';
-import { UserInterface } from './user.model';
+import { type UserInterface } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -26,6 +26,7 @@ export class User {
   //Nowa metoda sygnałów
   user = input.required<UserInterface>();
   select = output<string>();
+  selected = input.required<boolean>();
 
   imagePath = computed(() => {
     return '/users/' + this.user().avatar;

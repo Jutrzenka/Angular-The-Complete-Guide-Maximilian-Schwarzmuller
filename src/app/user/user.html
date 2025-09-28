@@ -1,6 +1,6 @@
 <!-- Nowa metoda na sygnałach -->
 <div>
-  <button [id]="user().id" (click)="onSelectUser()">
+  <button [class.active]="selected()" [id]="user().id" (click)="onSelectUser()">
     <img [src]="imagePath()" [alt]="user().name" />
     <span>{{ user().name }}</span>
   </button>
