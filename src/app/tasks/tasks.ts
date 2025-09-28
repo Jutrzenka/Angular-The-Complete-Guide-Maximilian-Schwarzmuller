@@ -1,7 +1,8 @@
-import { Component, input, computed, signal, output } from '@angular/core';
+import { Component, input, computed, signal } from '@angular/core';
 import { Task } from './task/task';
 import { DUMMY_TASKS } from '../dummy';
 import { NewTask } from './new-task/new-task';
+import { type TaskInterface } from './task/task.model';
 
 @Component({
   selector: 'app-tasks',
@@ -29,15 +30,18 @@ export class Tasks {
     this.isAddingTask.update((flag) => !flag);
   };
 
-  onAddNewTask = () => {
+  // Tutaj ważna strukturyzacja parametrów funkcji. Można to umieścić w .model jako oddzielny interface
+  onAddNewTask = (taskData: { title: string; summary: string; dueDate: string }) => {
+    const newTask: TaskInterface = {
+      id: `t${Date.now().toString()}`,
+      userId: this.id(),
+      title: taskData.title,
+      summary: taskData.summary,
+      dueDate: taskData.dueDate,
+    };
     this.tasks.update((tasks) => {
-      return tasks.concat({
-        id: 't1',
-        userId: 'u1',
-        title: 'Master Angular',
-        summary: 'Learn all the basic and advanced features of Angular & how to apply them.',
-        dueDate: '2025-12-31',
-      });
+      return tasks.concat(newTask);
     });
+    this.isAddingTask.set(false);
   };
 }
