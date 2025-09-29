@@ -14,10 +14,8 @@ main {
   display: flex;
   gap: 0.5rem;
   overflow: auto;
-}
 
-@media (min-width: 768px) {
-  .users {
+  @media (min-width: 768px) {
     flex-direction: column;
   }
 }
@@ -27,16 +25,16 @@ main {
   font-size: 1.15rem;
   margin: 0;
   text-align: center;
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    text-align: left;
+  }
 }
 
 @media (min-width: 768px) {
   main {
-    margin: 4rem auto;
+    margin: 2rem auto;
     grid-template-columns: 1fr 3fr;
-  }
-
-  #fallback {
-    font-size: 1.5rem;
-    text-align: left;
   }
 }
