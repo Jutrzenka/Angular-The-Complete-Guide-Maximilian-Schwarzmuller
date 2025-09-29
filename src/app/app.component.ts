@@ -1,8 +1,8 @@
 import { Component, computed, signal } from '@angular/core';
 import { HeaderComponent } from './header/header.component';
 import { User } from './user/user';
-import { DUMMY_USERS } from './dummy';
 import { Tasks } from './tasks/tasks';
+import { UserService } from './user/user.service';
 
 @Component({
   selector: 'app-root',
@@ -11,7 +11,8 @@ import { Tasks } from './tasks/tasks';
   styleUrl: './app.component.scss',
 })
 export class App {
-  users = DUMMY_USERS;
+  constructor(private userService: UserService) {}
+  users = computed(() => this.userService.getUsers());
   selectedUserId = signal<string | null>(null);
 
   onSelectUser(id: string) {
@@ -19,6 +20,6 @@ export class App {
   }
 
   selectedUser = computed(() => {
-    return this.users.find((user) => user.id === this.selectedUserId())!;
+    return this.users().find((user) => user.id === this.selectedUserId())!;
   });
 }
