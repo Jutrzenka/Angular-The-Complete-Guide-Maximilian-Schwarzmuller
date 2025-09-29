@@ -1,5 +1,6 @@
-import { Component, output, signal } from '@angular/core';
+import { Component, inject, input, output, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-new-task',
@@ -8,23 +9,27 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './new-task.scss',
 })
 export class NewTask {
+  private tasksService = inject(TasksService);
+
   cancel = output<boolean>();
-  addTask = output<{ title: string; summary: string; dueDate: string }>();
+  userId = input.required<string>();
 
   title = signal<string>('');
   summary = signal<string>('');
   dueDate = signal<string>('');
 
   onSubmit() {
-    // Emitowanie danych
-    this.addTask.emit({
-      title: this.title(),
-      summary: this.summary(),
-      dueDate: this.dueDate(),
-    });
-
+    this.tasksService.addNewTask(
+      {
+        title: this.title(),
+        summary: this.summary(),
+        dueDate: this.dueDate(),
+      },
+      this.userId()
+    );
     // Reset formularza
     this.resetForm();
+    this.cancel.emit(false);
   }
 
   onCancel() {
