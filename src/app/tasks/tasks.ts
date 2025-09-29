@@ -1,8 +1,7 @@
 import { Component, input, computed, signal } from '@angular/core';
 import { Task } from './task/task';
-import { DUMMY_TASKS } from '../dummy';
 import { NewTask } from './new-task/new-task';
-import { type TaskInterface } from './task/task.model';
+import { TasksService } from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -13,17 +12,17 @@ import { type TaskInterface } from './task/task.model';
 export class Tasks {
   id = input.required<string>();
   name = input.required<string>();
-  tasks = signal(DUMMY_TASKS);
   isAddingTask = signal<boolean>(false);
 
-  selectedUserTasks = computed(() => {
-    return this.tasks().filter((task) => {
-      return task.userId === this.id();
-    });
-  });
+  constructor(private taskService: TasksService) {}
+
+  selectedUserTasks = () => {
+    const userTasksSignal = this.taskService.getUserTasks(this.id());
+    return userTasksSignal(); // zwracam wartość
+  };
 
   onCompleteTask = (id: string) => {
-    this.tasks.update((tasks) => tasks.filter((task) => task.id !== id));
+    this.taskService.removeTask(id);
   };
 
   onChangeStatusAddTask = () => {
@@ -32,16 +31,7 @@ export class Tasks {
 
   // Tutaj ważna strukturyzacja parametrów funkcji. Można to umieścić w .model jako oddzielny interface
   onAddNewTask = (taskData: { title: string; summary: string; dueDate: string }) => {
-    const newTask: TaskInterface = {
-      id: `t${Date.now().toString()}`,
-      userId: this.id(),
-      title: taskData.title,
-      summary: taskData.summary,
-      dueDate: taskData.dueDate,
-    };
-    this.tasks.update((tasks) => {
-      return tasks.concat(newTask);
-    });
+    this.taskService.addNewTask(taskData, this.id());
     this.isAddingTask.set(false);
   };
 }
